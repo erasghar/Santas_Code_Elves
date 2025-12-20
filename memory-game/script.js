@@ -1,12 +1,15 @@
 const cards = document.querySelectorAll(".memory-card");
 const restartBtn = document.getElementById("restart");
+const timerDisplay = document.getElementById("timer");
 
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 let lives = 3;
+let idleTimer = null;
+let matchTimer = null;
 
-function shuffle() {
+function shuffleCards() {
     cards.forEach(card => {
         const randomPos = Math.floor(Math.random() * cards.length);
         card.style.order = randomPos;
