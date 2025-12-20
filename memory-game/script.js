@@ -61,3 +61,23 @@ function startIdleTimer() {
         }
     }, 1000);
 }
+
+function startMatchTimer() {
+    clearInterval(matchTimer);
+
+    let timeLeft = 5;
+    timerDisplay.textContent = timeLeft;
+
+    matchTimer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = timeLeft;
+
+        if (timeLeft === 0) {
+            clearInterval(matchTimer);
+            firstCard.classList.remove("flipped");
+            firstCard.textContent = "";
+            firstCard = null;
+            startIdleTimer();
+        }
+    }, 1000);
+}
