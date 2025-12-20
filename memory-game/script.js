@@ -30,13 +30,13 @@ function previewCards() {
             card.textContent = "";
         });
         lockBoard = false;
-        timerDisplay.textContent = "Select a card";
+        startIdleTimer();
     }, 8000);
 }
 
 function restartGame() {
     lives = 3;
-    timerDisplay.textContent = `Lives: ${lives}`;
+    console.log("Lives:", lives);
 
     cards.forEach(card => {
         card.classList.remove("flipped", "matched");
@@ -49,12 +49,19 @@ function restartGame() {
 }
 
 function startIdleTimer() {
+    if (lockBoard) return;
+
     clearInterval(idleTimer);
 
     let timeLeft = 10;
     timerDisplay.textContent = timeLeft;
 
     idleTimer = setInterval(() => {
+        if (lockBoard) {
+            clearInterval(idleTimer);
+            return;
+        }
+
         timeLeft--;
         timerDisplay.textContent = timeLeft;
 
@@ -64,6 +71,7 @@ function startIdleTimer() {
         }
     }, 1000);
 }
+
 
 function startMatchTimer() {
     clearInterval(matchTimer);
@@ -142,11 +150,9 @@ function resetBoard() {
     lockBoard = false;
     clearInterval(idleTimer);
     clearInterval(matchTimer);
-    startIdleTimer();
 }
 cards.forEach(card => card.addEventListener("click", flipCard));
 restartBtn.addEventListener("click", restartGame);
 
 shuffleCards();
 previewCards();
-startIdleTimer();
