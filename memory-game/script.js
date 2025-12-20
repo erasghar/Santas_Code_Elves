@@ -4,6 +4,7 @@ const restartBtn = document.getElementById("restart");
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
+let lives = 3;
 
 function shuffle() {
     cards.forEach(card => {
