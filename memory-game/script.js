@@ -102,3 +102,14 @@ function flipCard() {
     clearInterval(matchTimer);
     checkMatch();
 }
+
+function checkMatch() {
+    const isMatch = firstCard.dataset.card === secondCard.dataset.card;
+    isMatch ? disableCards() : unflipCards();
+}
+
+function disableCards() {
+    firstCard.classList.add("matched");
+    secondCard.classList.add("matched");
+    resetBoard();
+}
