@@ -12,6 +12,61 @@ let startBtn, endBtn, howToPlayBtn, elvesBtn, santa, housesContainer, houses;
 let progressText, progressFill, completionMessage, snowContainer;
 let mainGame, game1Container, game2Container, game3Container, game4Container;
 
+// Initialize the game
+function initGame() {
+    // Get DOM elements
+    startBtn = document.getElementById('startBtn');
+    endBtn = document.getElementById('endBtn');
+    howToPlayBtn = document.getElementById('howToPlayBtn');
+    elvesBtn = document.getElementById('elvesBtn');
+    santa = document.getElementById('santa');
+    housesContainer = document.getElementById('houses-container');
+    houses = document.querySelectorAll('.house');
+    progressText = document.getElementById('progress-text');
+    progressFill = document.getElementById('progress-fill');
+    completionMessage = document.getElementById('completion-message');
+    snowContainer = document.getElementById('snow');
+    
+    // Get screen elements
+    mainGame = document.getElementById('mainGame');
+    game1Container = document.getElementById('game1Container');
+    game2Container = document.getElementById('game2Container');
+    game3Container = document.getElementById('game3Container');
+    game4Container = document.getElementById('game4Container');
+    
+    resetGame();
+    createSnowflakes();
+    setupEventListeners();
+}
+
+// Reset game to initial state
+function resetGame() {
+    gameState.currentHouse = 0;
+    gameState.completedHouses = 0;
+    gameState.isPlaying = false;
+    gameState.santaPosition = 0;
+    
+    // Reset Santa position
+    santa.style.left = '0px';
+    
+    // Reset all houses to locked state
+    houses.forEach(house => {
+        const status = house.querySelector('.house-status');
+        status.textContent = '🔒';
+        house.classList.remove('unlocked', 'completed');
+        house.classList.add('locked');
+    });
+    
+    // Reset progress
+    updateProgress();
+    
+    // Hide completion message
+    completionMessage.style.display = 'none';
+    
+    // Reset buttons
+    startBtn.disabled = false;
+    endBtn.disabled = true;
+}
 
 // Create snowflake animation
 function createSnowflakes() {
@@ -63,6 +118,155 @@ function createSnowflakes() {
     }
 }
 
+// Set up event listeners
+function setupEventListeners() {
+    startBtn.addEventListener('click', startGame);
+    endBtn.addEventListener('click', endGame);
+    elvesBtn.addEventListener('click', showElvesInfo);
+    howToPlayBtn.addEventListener('click', showHowToPlay);
+
+    
+    // Add click events to houses
+    houses.forEach((house, index) => {
+        house.addEventListener('click', () => {
+            const houseNumber = parseInt(house.dataset.house);
+            
+            if (!gameState.isPlaying) {
+                showSantaMessage("Click 'Start Game' first!");
+                return;
+            }
+            
+            if (houseNumber === gameState.currentHouse + 1 && 
+                !house.classList.contains('completed')) {
+                openMiniGame(houseNumber);
+            } else if (houseNumber > gameState.currentHouse + 1) {
+                showSantaMessage("Complete the previous game first!");
+            }
+        });
+    });
+}
+
+// Start the game
+function startGame() {
+    if (gameState.isPlaying) return;
+    
+    gameState.isPlaying = true;
+    startBtn.disabled = true;
+    endBtn.disabled = false;
+    
+    // Move Santa to first house
+    moveSantaToHouse(1);
+    
+    // Play start sound
+    playSound('start');
+}
+
+// End the game
+function endGame() {
+    if (!gameState.isPlaying) return;
+    
+    gameState.isPlaying = false;
+    startBtn.disabled = false;
+    endBtn.disabled = true;
+    
+    // Show completion message if all houses are completed
+    if (gameState.completedHouses === gameState.totalHouses) {
+        completionMessage.style.display = 'block';
+    }
+}
+
+// Move Santa to a specific house
+function moveSantaToHouse(houseNumber) {
+    if (houseNumber < 1 || houseNumber > gameState.totalHouses) return;
+    
+    const houseElements = document.querySelectorAll('.house');
+    const targetHouse = houseElements[houseNumber - 1];
+    const houseRect = targetHouse.getBoundingClientRect();
+    const containerRect = housesContainer.getBoundingClientRect();
+    
+    const santaLeft = houseRect.left - containerRect.left + (houseRect.width / 2) - 50;
+    
+    gameState.currentHouse = houseNumber - 1;
+    gameState.santaPosition = santaLeft;
+    
+    // Add walking animation
+    santa.style.animation = 'santaWalk 0.5s infinite';
+    santa.style.left = `${santaLeft}px`;
+    
+    setTimeout(() => {
+        santa.style.animation = 'santaBounce 1s infinite alternate';
+    }, 2000);
+    
+    // Unlock the current house
+    unlockHouse(houseNumber - 1);
+}
+
+// Unlock a house
+function unlockHouse(houseIndex) {
+    if (houseIndex >= houses.length) return;
+    
+    const house = houses[houseIndex];
+    const status = house.querySelector('.house-status');
+    
+    house.classList.remove('locked');
+    house.classList.add('unlocked');
+    status.textContent = '🎮';
+}
+
+// Complete the current house
+function completeCurrentHouse() {
+    if (!gameState.isPlaying) return;
+    
+    const currentHouseIndex = gameState.currentHouse;
+    const house = houses[currentHouseIndex];
+    const status = house.querySelector('.house-status');
+    
+    house.classList.remove('unlocked');
+    house.classList.add('completed');
+    status.textContent = '✅';
+    
+    gameState.completedHouses++;
+    
+    // Play Santa's "Ho Ho Ho" sound
+    playSound('hohoho');
+    
+    // Update progress
+    updateProgress();
+    
+    // Move to next house if available
+    if (gameState.currentHouse < gameState.totalHouses - 1) {
+        setTimeout(() => {
+            moveSantaToHouse(gameState.currentHouse + 2);
+        }, 1000);
+    } else {
+        // All houses completed
+        setTimeout(() => {
+            endGame();
+        }, 1500);
+    }
+}
+
+// Update progress display
+function updateProgress() {
+    const progressPercent = (gameState.completedHouses / gameState.totalHouses) * 100;
+    progressFill.style.width = `${progressPercent}%`;
+    progressText.textContent = `${gameState.completedHouses}/${gameState.totalHouses} Games Completed`;
+}
+
+// Play sounds
+function playSound(type) {
+    switch(type) {
+        case 'start':
+            showSantaMessage("Let's help Santa!");
+            break;
+        case 'hohoho':
+            showSantaMessage("Ho Ho Ho!");
+            break;
+        case 'end':
+            showSantaMessage("Thank you for helping Santa!");
+            break;
+    }
+}
 
 // Show Santa message
 function showSantaMessage(message) {
@@ -190,3 +394,54 @@ function showHowToPlay() {
     
     modal.style.display = 'flex';
 }
+
+// Open mini-game based on house number
+function openMiniGame(houseNumber) {
+    // Hide main game
+    mainGame.style.display = 'none';
+    
+    // Show the appropriate mini-game
+    switch(houseNumber) {
+        case 1:
+            initGrinchHuntGame();
+            game1Container.style.display = 'flex';
+            break;
+        case 2:
+            initMemoryMatchGame();
+            game2Container.style.display = 'flex';
+            break;
+        case 3:
+            initCodePuzzleGame();
+            game3Container.style.display = 'flex';
+            break;
+        case 4:
+            initPresentStackGame();
+            game4Container.style.display = 'flex';
+            break;
+    }
+}
+
+// Return to main game from any mini-game
+function returnToMainGame(gameWon = false) {
+    // Hide all game containers
+    game1Container.style.display = 'none';
+    game2Container.style.display = 'none';
+    game3Container.style.display = 'none';
+    game4Container.style.display = 'none';
+    
+    // Show main game
+    mainGame.style.display = 'block';
+    
+    // If game was won, complete the current house
+    if (gameWon) {
+        completeCurrentHouse();
+    }
+}
+
+// Close a mini-game without winning
+function closeMiniGame() {
+    returnToMainGame(false);
+}
+
+// Initialize the game when page loads
+document.addEventListener('DOMContentLoaded', initGame);
