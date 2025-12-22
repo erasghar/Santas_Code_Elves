@@ -31,7 +31,7 @@ function initMemoryGame() {
 
         <div class="memory2-stat center">
           <div class="memory2-stat-label">Time:</div>
-          <div class="memory2-stat-value"><span id="memory2Time">60</span>s</div>
+          <div class="memory2-stat-value"><span id="memory2Time">10</span>s</div>
         </div>
 
         <div class="memory2-stat">
