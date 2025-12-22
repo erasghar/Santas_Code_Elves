@@ -26,14 +26,14 @@ function initGame() {
     progressFill = document.getElementById('progress-fill');
     completionMessage = document.getElementById('completion-message');
     snowContainer = document.getElementById('snow');
-    
+
     // Get screen elements
     mainGame = document.getElementById('mainGame');
     game1Container = document.getElementById('game1Container');
     game2Container = document.getElementById('game2Container');
     game3Container = document.getElementById('game3Container');
     game4Container = document.getElementById('game4Container');
-    
+
     resetGame();
     createSnowflakes();
     setupEventListeners();
@@ -45,10 +45,10 @@ function resetGame() {
     gameState.completedHouses = 0;
     gameState.isPlaying = false;
     gameState.santaPosition = 0;
-    
+
     // Reset Santa position
     santa.style.left = '0px';
-    
+
     // Reset all houses to locked state
     houses.forEach(house => {
         const status = house.querySelector('.house-status');
@@ -56,13 +56,13 @@ function resetGame() {
         house.classList.remove('unlocked', 'completed');
         house.classList.add('locked');
     });
-    
+
     // Reset progress
     updateProgress();
-    
+
     // Hide completion message
     completionMessage.style.display = 'none';
-    
+
     // Reset buttons
     startBtn.disabled = false;
     endBtn.disabled = true;
@@ -72,32 +72,32 @@ function resetGame() {
 function createSnowflakes() {
     // Clear any existing snowflakes
     snowContainer.innerHTML = '';
-    
+
     // Create 50 snowflakes
     for (let i = 0; i < 50; i++) {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
         snowflake.innerHTML = '❄';
-        
+
         // Random properties
         const size = Math.random() * 20 + 10;
         const startPosition = Math.random() * 100;
         const animationDuration = Math.random() * 5 + 5;
         const opacity = Math.random() * 0.7 + 0.3;
         const delay = Math.random() * 5;
-        
+
         // Apply styles
         snowflake.style.left = `${startPosition}%`;
         snowflake.style.top = '-20px';
         snowflake.style.fontSize = `${size}px`;
         snowflake.style.opacity = opacity;
-        
+
         // Animation
         snowflake.style.animation = `fall ${animationDuration}s linear ${delay}s infinite`;
-        
+
         snowContainer.appendChild(snowflake);
     }
-    
+
     // Add CSS for falling animation
     if (!document.querySelector('#snow-animation')) {
         const style = document.createElement('style');
@@ -125,18 +125,18 @@ function setupEventListeners() {
     elvesBtn.addEventListener('click', showElvesInfo);
     howToPlayBtn.addEventListener('click', showHowToPlay);
 
-    
+
     // Add click events to houses
     houses.forEach((house, index) => {
         house.addEventListener('click', () => {
             const houseNumber = parseInt(house.dataset.house);
-            
+
             if (!gameState.isPlaying) {
                 showSantaMessage("Click 'Start Game' first!");
                 return;
             }
-            
-            if (houseNumber === gameState.currentHouse + 1 && 
+
+            if (houseNumber === gameState.currentHouse + 1 &&
                 !house.classList.contains('completed')) {
                 openMiniGame(houseNumber);
             } else if (houseNumber > gameState.currentHouse + 1) {
@@ -149,14 +149,14 @@ function setupEventListeners() {
 // Start the game
 function startGame() {
     if (gameState.isPlaying) return;
-    
+
     gameState.isPlaying = true;
     startBtn.disabled = true;
     endBtn.disabled = false;
-    
+
     // Move Santa to first house
     moveSantaToHouse(1);
-    
+
     // Play start sound
     playSound('start');
 }
@@ -164,11 +164,11 @@ function startGame() {
 // End the game
 function endGame() {
     if (!gameState.isPlaying) return;
-    
+
     gameState.isPlaying = false;
     startBtn.disabled = false;
     endBtn.disabled = true;
-    
+
     // Show completion message if all houses are completed
     if (gameState.completedHouses === gameState.totalHouses) {
         completionMessage.style.display = 'block';
@@ -178,25 +178,25 @@ function endGame() {
 // Move Santa to a specific house
 function moveSantaToHouse(houseNumber) {
     if (houseNumber < 1 || houseNumber > gameState.totalHouses) return;
-    
+
     const houseElements = document.querySelectorAll('.house');
     const targetHouse = houseElements[houseNumber - 1];
     const houseRect = targetHouse.getBoundingClientRect();
     const containerRect = housesContainer.getBoundingClientRect();
-    
+
     const santaLeft = houseRect.left - containerRect.left + (houseRect.width / 2) - 50;
-    
+
     gameState.currentHouse = houseNumber - 1;
     gameState.santaPosition = santaLeft;
-    
+
     // Add walking animation
     santa.style.animation = 'santaWalk 0.5s infinite';
     santa.style.left = `${santaLeft}px`;
-    
+
     setTimeout(() => {
         santa.style.animation = 'santaBounce 1s infinite alternate';
     }, 2000);
-    
+
     // Unlock the current house
     unlockHouse(houseNumber - 1);
 }
@@ -204,10 +204,10 @@ function moveSantaToHouse(houseNumber) {
 // Unlock a house
 function unlockHouse(houseIndex) {
     if (houseIndex >= houses.length) return;
-    
+
     const house = houses[houseIndex];
     const status = house.querySelector('.house-status');
-    
+
     house.classList.remove('locked');
     house.classList.add('unlocked');
     status.textContent = '🎮';
@@ -216,23 +216,23 @@ function unlockHouse(houseIndex) {
 // Complete the current house
 function completeCurrentHouse() {
     if (!gameState.isPlaying) return;
-    
+
     const currentHouseIndex = gameState.currentHouse;
     const house = houses[currentHouseIndex];
     const status = house.querySelector('.house-status');
-    
+
     house.classList.remove('unlocked');
     house.classList.add('completed');
     status.textContent = '✅';
-    
+
     gameState.completedHouses++;
-    
+
     // Play Santa's "Ho Ho Ho" sound
     playSound('hohoho');
-    
+
     // Update progress
     updateProgress();
-    
+
     // Move to next house if available
     if (gameState.currentHouse < gameState.totalHouses - 1) {
         setTimeout(() => {
@@ -255,7 +255,7 @@ function updateProgress() {
 
 // Play sounds
 function playSound(type) {
-    switch(type) {
+    switch (type) {
         case 'start':
             showSantaMessage("Let's help Santa!");
             break;
@@ -272,7 +272,7 @@ function playSound(type) {
 function showSantaMessage(message) {
     const existingMessage = santa.querySelector('.santa-message');
     if (existingMessage) existingMessage.remove();
-    
+
     const messageEl = document.createElement('div');
     messageEl.textContent = message;
     messageEl.classList.add('santa-message');
@@ -289,9 +289,9 @@ function showSantaMessage(message) {
     messageEl.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
     messageEl.style.zIndex = '100';
     messageEl.style.whiteSpace = 'nowrap';
-    
+
     santa.appendChild(messageEl);
-    
+
     setTimeout(() => {
         messageEl.remove();
     }, 2000);
@@ -302,7 +302,7 @@ function showSantaMessage(message) {
 function showElvesInfo() {
     // Create modal if it doesn't exist
     let modal = document.getElementById('elvesModal');
-    
+
     if (!modal) {
         modal = document.createElement('div');
         modal.id = 'elvesModal';
@@ -335,12 +335,12 @@ function showElvesInfo() {
             </div>
         `;
         document.body.appendChild(modal);
-        
+
         // Add event listener to close button
         modal.querySelector('.close-modal').addEventListener('click', () => {
             modal.style.display = 'none';
         });
-        
+
         // Close modal when clicking outside
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -348,7 +348,7 @@ function showElvesInfo() {
             }
         });
     }
-    
+
     modal.style.display = 'flex';
 }
 
@@ -357,7 +357,7 @@ function showElvesInfo() {
 function showHowToPlay() {
     // Create modal if it doesn't exist
     let modal = document.getElementById('howToPlayModal');
-    
+
     if (!modal) {
         modal = document.createElement('div');
         modal.id = 'howToPlayModal';
@@ -378,12 +378,12 @@ function showHowToPlay() {
             </div>
         `;
         document.body.appendChild(modal);
-        
+
         // Add event listener to close button
         modal.querySelector('.close-modal').addEventListener('click', () => {
             modal.style.display = 'none';
         });
-        
+
         // Close modal when clicking outside
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -391,7 +391,7 @@ function showHowToPlay() {
             }
         });
     }
-    
+
     modal.style.display = 'flex';
 }
 
@@ -399,15 +399,15 @@ function showHowToPlay() {
 function openMiniGame(houseNumber) {
     // Hide main game
     mainGame.style.display = 'none';
-    
+
     // Show the appropriate mini-game
-    switch(houseNumber) {
+    switch (houseNumber) {
         case 1:
             initGrinchHuntGame();
             game1Container.style.display = 'flex';
             break;
         case 2:
-            initMemoryMatchGame();
+            initMemoryGame();
             game2Container.style.display = 'flex';
             break;
         case 3:
@@ -428,10 +428,10 @@ function returnToMainGame(gameWon = false) {
     game2Container.style.display = 'none';
     game3Container.style.display = 'none';
     game4Container.style.display = 'none';
-    
+
     // Show main game
     mainGame.style.display = 'block';
-    
+
     // If game was won, complete the current house
     if (gameWon) {
         completeCurrentHouse();

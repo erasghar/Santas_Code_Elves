@@ -1,0 +1,336 @@
+#game2Container.mini-game-container,
+#game2Container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.memory2-wrapper {
+    width: 100%;
+    max-width: 950px;
+    border-radius: 22px;
+    padding: 22px;
+    position: relative;
+
+    background: linear-gradient(to bottom, #1f6b2b, #0f3e18);
+    border: 6px solid #ffcc00;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+.memory2-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    background: #ff4d4d;
+    color: #fff;
+    font-size: 1.7rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memory2-close:hover {
+    background: #ff3333;
+}
+
+.memory2-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 6px 0 18px 0;
+}
+
+.memory2-title-icon {
+    font-size: 2rem;
+}
+
+.memory2-title h2 {
+    margin: 0;
+    font-size: 2.4rem;
+    color: #ffcc00;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.memory2-howto {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+}
+
+.memory2-howto h3 {
+    margin: 0 0 10px 0;
+    color: #6bff79;
+    font-size: 1.25rem;
+}
+
+.memory2-howto p {
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+}
+
+.memory2-howto ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.memory2-howto li {
+    margin: 6px 0;
+}
+
+.memory2-statsbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.1);
+    padding: 14px 14px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+}
+
+.memory2-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.memory2-stat.center {
+    text-align: center;
+}
+
+.memory2-stat-label {
+    font-weight: 700;
+    color: #ffcc00;
+}
+
+.memory2-stat-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.memory2-startbtn {
+    border: none;
+    cursor: pointer;
+    border-radius: 26px;
+    padding: 14px 18px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+
+    background: linear-gradient(to right, #4caf50, #2e7d32);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.memory2-startbtn:hover {
+    transform: scale(1.02);
+}
+
+.memory2-startbtn.disabled,
+.memory2-startbtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.memory2-startbtn .play-icon {
+    font-weight: 900;
+}
+
+.memory2-playarea {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    border-radius: 16px;
+    border: 4px solid #ffcc00;
+
+    background: linear-gradient(to bottom, #0c1643, #1a237e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.memory2-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 92px);
+    gap: 18px;
+}
+
+.memory2-card {
+    width: 92px;
+    height: 92px;
+    border-radius: 14px;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.memory2-card:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+.memory2-card-inner {
+    font-size: 2.1rem;
+    font-weight: 900;
+}
+
+.memory2-card.flipped {
+    background: rgba(255, 204, 0, 0.95);
+    color: #0c1643;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.memory2-card.matched {
+    background: rgba(76, 175, 80, 0.95);
+    color: #0c1643;
+}
+
+.memory2-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+}
+
+.memory2-overlay-inner {
+    width: 100%;
+    max-width: 520px;
+    background: rgba(12, 22, 67, 0.95);
+    border: 3px solid #ffcc00;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+}
+
+.memory2-overlay-title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #ffcc00;
+}
+
+.memory2-overlay-sub {
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.memory2-overlay-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.memory2-btn {
+    border: none;
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 24px;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.memory2-btn-retry {
+    background: linear-gradient(to right, #ff7043, #e64a19);
+}
+
+.memory2-btn-village {
+    background: linear-gradient(to right, #2196f3, #0d47a1);
+}
+
+@media (max-width: 768px) {
+    .memory2-statsbar {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: auto;
+    }
+
+    .memory2-startbtn {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+
+    .memory2-playarea {
+        height: 380px;
+    }
+
+    .memory2-grid {
+        grid-template-columns: repeat(4, 76px);
+        gap: 14px;
+    }
+
+    .memory2-card {
+        width: 76px;
+        height: 76px;
+    }
+
+    .memory2-card-inner {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .memory2-grid {
+        grid-template-columns: repeat(3, 78px);
+    }
+
+    .memory2-playarea {
+        height: 420px;
+    }
+}
+
+.memory2-lose-message {
+    color: #ff5252;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.memory2-win-message {
+    color: #4CAF50;
+    font-size: 2.4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.memory2-back-btn {
+    background: linear-gradient(to right, #2196F3, #0d47a1);
+    color: white;
+    border: none;
+    padding: 16px 34px;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}

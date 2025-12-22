@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assests/css/style.css">
     <link rel="stylesheet" href="assests/css/game1-grinch.css">
+    <link rel="stylesheet" href="assests/css/game2-memory.css">
+
 </head>
+
 <body>
     <!-- Snow Animation Container -->
     <div id="snow"></div>
-    
+
     <!-- MAIN GAME SCREEN -->
     <div id="mainGame" class="container">
-        
-         <header>
+
+        <header>
             <div class="header-content">
                 <h1 class="game-title">Santa's Code Elves</h1>
                 <button class="btn-how-to-play" id="howToPlayBtn">
@@ -28,14 +32,14 @@
         </header>
 
         <main class="game-board">
-            
+
             <!-- Santa Animation -->
             <div class="santa-container">
                 <div class="santa" id="santa">
                     <div class="santa-icon">🎅</div>
                 </div>
             </div>
-  
+
             <!-- Houses -->
             <div class="houses-container" id="houses-container">
                 <!-- House 1 - Grinch Hunt -->
@@ -46,7 +50,7 @@
                     </div>
                     <div class="house-name">Grinch Hunt</div>
                 </div>
-                
+
                 <!-- House 2 -->
                 <div class="house" data-house="2" data-game="coming-soon">
                     <div class="house-window">
@@ -55,7 +59,7 @@
                     </div>
                     <div class="house-name">CSS Sleigh Ride</div>
                 </div>
-                
+
                 <!-- House 3 -->
                 <div class="house" data-house="3" data-game="coming-soon">
                     <div class="house-window">
@@ -64,7 +68,7 @@
                     </div>
                     <div class="house-name">JS Jingle Bells</div>
                 </div>
-                
+
                 <!-- House 4 -->
                 <div class="house" data-house="4" data-game="coming-soon">
                     <div class="house-window">
@@ -83,7 +87,7 @@
                     <i class="fas fa-stop"></i> End Game
                 </button>
             </div>
-            
+
             <!-- Progress Bar -->
             <div class="progress-container">
                 <div class="progress-text">Progress: <span id="progress-text">0/4 Games Completed</span></div>
@@ -91,7 +95,7 @@
                     <div class="progress-fill" id="progress-fill"></div>
                 </div>
             </div>
-            
+
             <!-- Completion Message -->
             <div class="completion-message" id="completion-message">
                 <h2>🎄 Mission Accomplished! 🎄</h2>
@@ -100,7 +104,7 @@
                 <p>Santa says: <strong>"Ho Ho Ho! Merry Christmas to all, and to all a good night!"</strong></p>
                 <p>The Code Elves appreciate your help in saving Christmas!</p>
             </div>
-            
+
         </main>
 
         <!-- footer -->
@@ -117,5 +121,7 @@
     <!-- Load JavaScript files -->
     <script src="assests/js/script.js"></script>
     <script src="assests/js/game1-grinch.js"></script>
+    <script src="assests/js/game2-memory.js"></script>
 </body>
+
 </html>
