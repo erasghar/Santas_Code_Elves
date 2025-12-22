@@ -325,10 +325,12 @@
 }
 
 .memory2-back-btn {
+    display: block;
+    margin: 30px auto 10px auto;
     background: linear-gradient(to right, #2196F3, #0d47a1);
     color: white;
     border: none;
-    padding: 16px 34px;
+    padding: 16px 36px;
     border-radius: 30px;
     font-size: 1.3rem;
     font-weight: bold;

@@ -14,7 +14,7 @@ function initMemoryGame() {
 
       <div class="memory2-howto">
         <h3>How to Play:</h3>
-        <p>All cards will be revealed for <strong>8 seconds</strong>. Memorise them, then match all pairs!</p>
+        <p>All cards will be revealed for <strong>10 seconds</strong>. Memorise them, then match all pairs!</p>
         <ul>
           <li>Click two cards to flip them</li>
           <li>If they match, they stay revealed</li>
@@ -288,23 +288,22 @@ function winMemoryGame2() {
     setBoardEnabled2(false);
 
     const playArea = document.querySelector(".memory2-playarea");
-
+    if (!playArea) {
+        console.error("memory2-playarea not found");
+        return;
+    }
     playArea.innerHTML = `
         <div class="memory2-win-message">
             🎉 You Win! Memory Master!
         </div>
     `;
-
-    // Create Back to Village button (same behaviour as Grinch)
+    document.querySelector(".memory2-back-btn")?.remove();
     const backBtn = document.createElement("button");
     backBtn.className = "memory2-back-btn";
     backBtn.innerHTML = "🏠 Back to Village";
 
     backBtn.onclick = () => {
-        // ✅ unlocks level 3
         returnToMainGame(true);
     };
-
-    playArea.appendChild(backBtn);
+    playArea.parentNode.appendChild(backBtn);
 }
-
