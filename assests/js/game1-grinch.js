@@ -7,12 +7,6 @@ let grinchTimer;
 let grinchInterval;
 
 function initGrinchHuntGame() {
-    console.log('initGrinchHuntGame called. game1Container:', typeof game1Container !== 'undefined' ? game1Container : 'undefined');
-    // Ensure container exists
-    if (typeof game1Container === 'undefined' || !game1Container) {
-        console.error('game1Container is not defined or not found in DOM. Aborting Grinch initialization.');
-        return;
-    }
     // Setup game HTML
     game1Container.innerHTML = `
         <div class="game-content"  style="background: linear-gradient(to bottom, #1a5f23, #0d3b13); padding: 30px; border-radius: 20px; width: 100%; max-height: 100vh; overflow-y: auto; border: 5px solid #ffcc00; position: relative;">
@@ -47,7 +41,7 @@ function initGrinchHuntGame() {
             </div>
             
             <div class="game-area" id="grinchGameArea" style="position: relative; width: 100%; height: 400px; background: linear-gradient(to bottom, #0c1643, #1a237e); border-radius: 15px; overflow: hidden; border: 3px solid #ffcc00;">
-                <div id="grinchCharacter" style="display: none; position: absolute; width: 80px; height: 80px; background: #00b894; border-radius: 50%; cursor: pointer; transition: all 0.3s; border: 3px solid #ff4d4d;"></div>
+                <div id="grinchCharacter" style="display: none; position: absolute; width: 80px; height: 80px; cursor: pointer; transition: all 0.3s; border: 3px solid #ff4d4d; background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
                 <div id="grinchSnowball" style="display: none; position: absolute; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none;"></div>
                 <div id="grinchMessage" class="game-message" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; font-weight: bold; text-align: center; display: none;"></div>
             </div>
@@ -68,17 +62,20 @@ function initGrinchHuntGame() {
             position: absolute;
             width: 80px;
             height: 80px;
-            background: linear-gradient(to bottom, #00b894, #008b74);
             border-radius: 50%;
             cursor: pointer;
             border: 3px solid #ff4d4d;
             display: none;
             box-shadow: 0 0 10px rgba(0, 184, 148, 0.5);
             transition: transform 0.1s;
+            background-image: url('assets/images/grinch.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
         
         #grinchCharacter:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         
         #grinchSnowball {
@@ -99,7 +96,7 @@ function initGrinchHuntGame() {
         
         @keyframes hitEffect {
             0% { transform: scale(1); }
-            50% { transform: scale(1.5); background: #ff0000; }
+            50% { transform: scale(1.5); }
             100% { transform: scale(1); }
         }
         
@@ -227,12 +224,12 @@ function hitGrinch() {
         grinch.classList.remove('grinch-hit');
     }, 300);
     
-    // Snowball animation
-    const grinchRect = grinch.getBoundingClientRect();
-    const gameAreaRect = gameArea.getBoundingClientRect();
+    // Snowball animation - Get current position before hiding
+    const grinchLeft = parseInt(grinch.style.left) || 0;
+    const grinchTop = parseInt(grinch.style.top) || 0;
     
-    snowball.style.left = `${grinchRect.left - gameAreaRect.left + 40}px`;
-    snowball.style.top = `${grinchRect.top - gameAreaRect.top + 40}px`;
+    snowball.style.left = `${grinchLeft + 30}px`;
+    snowball.style.top = `${grinchTop + 30}px`;
     snowball.style.display = 'block';
     
     // Add explode animation
