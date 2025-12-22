@@ -315,3 +315,22 @@
     font-weight: bold;
     text-align: center;
 }
+
+.memory2-win-message {
+    color: #4CAF50;
+    font-size: 2.4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.memory2-back-btn {
+    background: linear-gradient(to right, #2196F3, #0d47a1);
+    color: white;
+    border: none;
+    padding: 16px 34px;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}

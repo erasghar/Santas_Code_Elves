@@ -284,21 +284,27 @@ function loseMemoryGame2() {
 }
 
 function winMemoryGame2() {
-    showOverlay2("🎉 You Win!", "Nice! Head back to the village to unlock the next house.");
+    cleanupMemoryGame2();
+    setBoardEnabled2(false);
 
-    const retryBtn = document.getElementById("memory2RetryBtn");
-    const villageBtn = document.getElementById("memory2VillageBtn");
-    retryBtn.style.display = "none"; // REQUIRED: remove Start Again on win
-    villageBtn.style.display = "inline-flex";
+    const playArea = document.querySelector(".memory2-playarea");
 
-    // Keep start disabled on win (they don't need it)
-    const startBtn = document.getElementById("memory2StartBtn");
-    startBtn.disabled = true;
-    startBtn.classList.add("disabled");
+    playArea.innerHTML = `
+        <div class="memory2-win-message">
+            🎉 You Win! Memory Master!
+        </div>
+    `;
 
-    villageBtn.onclick = () => {
-        cleanupMemoryGame2();
-        // WIN: unlock next house
+    // Create Back to Village button (same behaviour as Grinch)
+    const backBtn = document.createElement("button");
+    backBtn.className = "memory2-back-btn";
+    backBtn.innerHTML = "🏠 Back to Village";
+
+    backBtn.onclick = () => {
+        // ✅ unlocks level 3
         returnToMainGame(true);
     };
+
+    playArea.appendChild(backBtn);
 }
+
