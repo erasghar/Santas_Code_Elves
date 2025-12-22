@@ -1,0 +1,635 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(to bottom, #0c1643, #202995);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Snow Animation */
+#snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.snowflake {
+    position: absolute;
+    color: #ffffff;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Main Container */
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.game-title {
+    font-size: 3.5rem;
+    color: #ff4d4d;
+    text-shadow: 3px 3px 0 #ffcc00, 5px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-family: 'Georgia', serif;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #a3d9ff;
+    margin-bottom: 5px;
+}
+
+.team-name {
+    font-size: 1.5rem;
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+.btn-elves {
+    background: linear-gradient(to right, #00b894, #00a085);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-elves:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-elves:active {
+    transform: scale(0.98);
+}
+
+.btn-how-to-play {
+    background: linear-gradient(to right, #ff9f43, #e67e22);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-how-to-play:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-how-to-play:active {
+    transform: scale(0.98);
+}
+
+/* Game Instructions */
+.instructions {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-left: 5px solid #ff4d4d;
+}
+
+.instructions h2 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.instructions p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.instructions ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+}
+
+/* Game Board */
+.game-board {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Houses Section */
+.houses-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.house {
+    width: 220px;
+    height: 220px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2px;
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+    cursor: pointer;
+}
+
+.house:hover {
+    transform: translateY(-10px);
+}
+
+.house.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.house.unlocked {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.house.completed {
+    opacity: 1;
+    border-color: #4CAF50;
+}
+
+.house-window {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1px;
+    border: 5px solid #ffcc00;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.084);
+    overflow: hidden;
+    position: relative;
+}
+
+.house-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.house-status {
+    position: absolute;
+    font-size: 2.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.house.completed .house-status {
+    background: rgba(76, 175, 80, 0.8);
+}
+
+.house-name {
+    margin-top: 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ffcc00;
+    text-align: center;
+}
+
+/* Santa Animation */
+.santa-container {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.santa {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    height: 100px;
+    transition: left 2s ease-in-out;
+    z-index: 10;
+}
+
+.santa-icon {
+font-size: 7rem;
+    position: relative;
+    animation: santaBounce 1s infinite alternate;
+}
+
+@keyframes santaBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+@keyframes santaWalk {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(-5deg); }
+    75% { transform: translateY(-5px) rotate(5deg); }
+}
+
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-start {
+    background: linear-gradient(to right, #4CAF50, #2E7D32);
+    color: white;
+}
+
+.btn-end {
+    background: linear-gradient(to right, #f44336, #c62828);
+    color: white;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Game Progress */
+.progress-container {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.progress-text {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #ffcc00;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    border-radius: 15px;
+    transition: width 1s;
+}
+
+/* Completion Message */
+.completion-message {
+    display: none;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 30px;
+    border: 3px solid #ffcc00;
+}
+
+.completion-message h2 {
+    color: #ffcc00;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.completion-message p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Elves Info Modal */
+.elves-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.elves-modal-content {
+    background: linear-gradient(to bottom, #1a237e, #0c1643);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    border: 3px solid #ffcc00;
+    position: relative;
+}
+
+.elves-modal h2 {
+    color: #ffcc00;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.elves-modal p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.elves-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.elf {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 120px;
+}
+
+.elf i {
+    font-size: 2.5rem;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-modal:hover {
+    background: #ff3333;
+}
+
+/* How to Play Modal */
+.how-to-play-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);     
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.how-to-play-modal-content {
+    background: linear-gradient(to bottom, #1a237e, #0c1643);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    border: 3px solid #ffcc00;
+    position: relative;
+}
+
+.how-to-play-modal h2 {
+    color: #ffcc00;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.how-to-play-modal p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.close-how-to-play-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-how-to-play-modal:hover {
+    background: #ff3333;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 5px 10px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #a3d9ff;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .houses-container {
+        gap: 20px;
+    }
+    
+    .house {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .house-window {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .game-title {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .houses-container {
+        gap: 15px;
+    }
+    
+    .house {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .house-window {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .game-title {
+        font-size: 2.2rem;
+    }
+    
+    .controls {
+        gap: 15px;
+    }
+    
+    .btn {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+    }
+    
+    .santa {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 576px) {
+    .houses-container {
+        gap: 10px;
+    }
+    
+    .house {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .house-window {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .house-name {
+        font-size: 1rem;
+    }
+    
+    .game-title {
+        font-size: 1.8rem;
+    }
+    
+    .instructions h2 {
+        font-size: 1.5rem;
+    }
+    
+    .santa {
+        width: 70px;
+        height: 70px;
+    }
+}
