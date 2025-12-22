@@ -1,0 +1,156 @@
+/* grinch-hunt.css */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #0c1643, #1a237e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .game-container {
+            background: linear-gradient(to bottom, #1a5f23, #0d3b13);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            border: 5px solid #ffcc00;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .game-header h1 {
+            color: #ffcc00;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .game-instructions {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .game-instructions h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        
+        .game-instructions ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .game-instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .stat-box h3 {
+            color: #ffcc00;
+            margin-bottom: 5px;
+        }
+        
+        .game-area {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(to bottom, #0c1643, #1a237e);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid #ffcc00;
+            margin-bottom: 20px;
+        }
+        
+        #grinch {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #00b894;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid #ff4d4d;
+            display: none;
+        }
+        
+        #snowball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            display: none;
+        }
+        
+        #gameMessage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+        
+        .game-controls {
+            text-align: center;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-start {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+        }
+        
+        .btn-home {
+            background: linear-gradient(to right, #2196F3, #0d47a1);
+            color: white;
+            display: none;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
