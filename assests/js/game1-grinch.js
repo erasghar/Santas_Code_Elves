@@ -68,7 +68,7 @@ function initGrinchHuntGame() {
             display: none;
             box-shadow: 0 0 10px rgba(0, 184, 148, 0.5);
             transition: transform 0.1s;
-            background-image: url('assets/images/grinch.png');
+            background-image: url('assests/images/grinch.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
