@@ -1,16 +1,16 @@
-body {
+.memory-game {
     text-align: center;
     font-family: Arial, sans-serif;
 }
 
-.MemoryGame {
+.memory-game .MemoryGame {
     display: grid;
     grid-template-columns: repeat(4, 150px);
     gap: 40px;
     justify-content: center;
 }
 
-.memory-card {
+.memory-game .memory-card {
     width: 150px;
     height: 150px;
     background: #ccc;
@@ -20,27 +20,26 @@ body {
     justify-content: center;
 }
 
-
-.memory-card.flipped {
+.memory-game .memory-card.flipped {
     background: yellow;
 }
 
-.memory-card.matched {
+.memory-game .memory-card.matched {
     background: green;
     cursor: default;
 }
 
-#hud {
+.memory-game #hud {
     display: flex;
     justify-content: center;
     gap: 30px;
     margin-bottom: 10px;
 }
 
-#timer {
+.memory-game #timer {
     font-size: 2rem;
 }
 
-#lives {
+.memory-game #lives {
     font-size: 1.5rem;
 }
